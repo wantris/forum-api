@@ -7,6 +7,7 @@ const users = require('../../Interfaces/http/api/users');
 const authentications = require('../../Interfaces/http/api/authentications');
 const threads = require('../../Interfaces/http/api/threads');
 const comments = require('../../Interfaces/http/api/comments');
+const configVersion = require('../../../config/version/version.json');
 
 const createServer = async (container) => {
   const server = Hapi.server({
@@ -51,6 +52,14 @@ const createServer = async (container) => {
       options: { container },
     },
   ]);
+
+  server.route({
+    method: 'GET',
+    path: '/',
+    handler: () => ({
+      value: `Welcome to ForumApi V.${configVersion.version}`,
+    }),
+  });
 
   server.ext('onPreResponse', (request, h) => {
     // mendapatkan konteks response dari request
