@@ -1,4 +1,5 @@
 const createServer = require('../createServer');
+const configVersion = require('../../../../config/version/version.json');
 
 describe('HTTP server', () => {
   it('should response 404 when request unregistered route', async () => {
@@ -13,6 +14,22 @@ describe('HTTP server', () => {
 
     // Assert
     expect(response.statusCode).toEqual(404);
+  });
+
+  describe('when GET /', () => {
+    it('should return 200 and show version', async () => {
+      // Arrange
+      const server = await createServer({});
+      // Action
+      const response = await server.inject({
+        method: 'GET',
+        url: '/',
+      });
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.value).toEqual(`Welcome to ForumApi V.${configVersion.version}`);
+    });
   });
 
   it('should handle server error correctly', async () => {
