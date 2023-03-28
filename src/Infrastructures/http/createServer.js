@@ -57,7 +57,8 @@ const createServer = async (container) => {
     method: 'GET',
     path: '/',
     handler: () => ({
-      value: `Welcome to ForumApi V.${configVersion.version}`,
+      name: 'ForumApi',
+      version: configVersion.version,
     }),
   });
 
