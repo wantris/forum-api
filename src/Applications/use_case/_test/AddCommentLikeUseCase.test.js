@@ -84,7 +84,7 @@ describe('AddCommentLikeUseCase', () => {
       .mockImplementation(() => Promise.resolve());
 
     mockCommentLikeRepository.verifyCommentLikeExist = jest.fn()
-      .mockImplementation(() => Promise.resolve(0));
+      .mockImplementation(() => Promise.resolve(1));
 
     mockCommentLikeRepository.addLike = jest.fn()
       .mockImplementation(() => Promise.resolve());
