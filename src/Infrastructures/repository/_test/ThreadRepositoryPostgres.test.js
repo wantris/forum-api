@@ -135,5 +135,25 @@ describe('ThreadRepositoryPostgres', () => {
         threadRepositoryPostgres.getDetailThread('thread-123'),
       ).resolves.not.toThrowError(NotFoundError);
     });
+
+    it('should return thread correctly', async () => {
+      const date = new Date().toISOString();
+      await UsersTableTestHelper.addUser({ id: 'user-123' });
+      await ThreadsTableTestHelper.addThread({ id: 'thread-123', createdAt: date });
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(
+        pool,
+        {},
+        {},
+      );
+
+      const thread = await threadRepositoryPostgres.getDetailThread('thread-123');
+      expect(thread).toEqual({
+        body: 'lorem ipsum',
+        date,
+        id: 'thread-123',
+        title: 'lorem ipsum',
+        username: 'dicoding',
+      });
+    });
   });
 });

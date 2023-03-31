@@ -57,6 +57,7 @@ describe('GetDetailThreadUseCase', () => {
           username: comment[0].username,
           date: comment[0].date,
           content: comment[0].content,
+          likeCount: 0,
           replies: expectedReply,
         },
         {
@@ -64,6 +65,7 @@ describe('GetDetailThreadUseCase', () => {
           username: comment[1].username,
           date: comment[1].date,
           content: '**komentar telah dihapus**',
+          likeCount: 0,
           replies: expectedReply,
         },
       ],

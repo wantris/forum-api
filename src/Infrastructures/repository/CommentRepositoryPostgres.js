@@ -25,7 +25,7 @@ class CommentRepositoryPostgres extends CommentRepository {
 
     const result = await this._pool.query(query);
 
-    return new RegisteredComment({ ...result.rows[0] });
+    return new RegisteredComment(result.rows[0]);
   }
 
   async verifyCommentExist(id) {
@@ -56,10 +56,11 @@ class CommentRepositoryPostgres extends CommentRepository {
 
   async getCommentByThreadId(threadId) {
     const query = {
-      text: `SELECT comments.id, comments.created_at as date, comments.content, comments.is_delete, users.username 
-            FROM comments
-            LEFT JOIN users ON comments.owner = users.id
-            WHERE comments.thread_id = $1 AND comments.parent_reply_id IS NULL ORDER BY created_at ASC`,
+      text: `SELECT comments.id, comments.created_at as date, comments.content, comments.is_delete, users.username, COALESCE(count(comment_likes.id), 0) as likeCount  
+      FROM comments
+      LEFT JOIN users ON comments.owner = users.id
+      left join comment_likes on comments.id = comment_likes.comment_id
+      WHERE comments.thread_id = $1 AND comments.parent_reply_id IS null group by comments.id, users.username ORDER BY comments.created_at asc`,
       values: [threadId],
     };
     const result = await this._pool.query(query);

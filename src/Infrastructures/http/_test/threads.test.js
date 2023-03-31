@@ -130,14 +130,15 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(404);
       expect(responseJson.status).toEqual('fail');
     });
+
     it('should return 200 when thread exist', async () => {
-      const date = new Date().toISOString();
+      const date = new Date();
       const payload = {
         id: 'thread-123',
         title: 'lorem ipsum',
         body: 'lorem ipsum',
         owner: 'user-124',
-        createdAt: date,
+        createdAt: date.toISOString(),
       };
 
       const userPayload = [
@@ -158,7 +159,7 @@ describe('/threads endpoint', () => {
           content: 'lorem ipsum',
           thread: 'thread-123',
           isDelete: false,
-          createdAt: date,
+          createdAt: new Date().toISOString(),
         },
         {
           id: 'comment-124',
@@ -166,7 +167,7 @@ describe('/threads endpoint', () => {
           thread: 'thread-123',
           content: 'konten lorem ipsum',
           isDelete: true,
-          createdAt: date,
+          createdAt: new Date(date.setMinutes(date.getMinutes() + 5)).toISOString(),
         },
       ];
       const expectedComments = [
@@ -174,14 +175,16 @@ describe('/threads endpoint', () => {
           id: commentPayload[0].id,
           username: 'jhondoe',
           content: commentPayload[0].content,
-          date,
+          date: commentPayload[0].createdAt,
+          likeCount: 0,
           replies: [],
         },
         {
           id: commentPayload[1].id,
           username: 'dicoding',
           content: '**komentar telah dihapus**',
-          date,
+          date: commentPayload[1].createdAt,
+          likeCount: 0,
           replies: [],
         },
       ];
@@ -189,7 +192,7 @@ describe('/threads endpoint', () => {
         id: payload.id,
         title: payload.title,
         body: payload.body,
-        date,
+        date: payload.createdAt,
       };
       const expectedDetailThread = {
         ...expectedData,
