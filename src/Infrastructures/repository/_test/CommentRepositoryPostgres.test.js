@@ -168,7 +168,7 @@ describe('CommentRepositoryPostgres', () => {
         threadId: 'thread-123',
         commentId: 'comment-123',
         commentId2: 'comment-124',
-        date: new Date().toISOString(),
+        date: new Date(),
       };
       const expected = [
         {
@@ -176,14 +176,14 @@ describe('CommentRepositoryPostgres', () => {
           content: 'konten lorem ipsum',
           is_delete: false,
           username: 'dicoding',
-          date: payload.date,
+          date: payload.date.toISOString(),
         },
         {
           id: 'comment-123',
           content: 'lorem ipsum',
           is_delete: false,
           username: 'dicoding',
-          date: payload.date,
+          date: new Date(payload.date.setMinutes(payload.date.getMinutes() + 30)).toISOString(),
         },
       ];
       await UsersTableTestHelper.addUser({ id: payload.userId });
@@ -196,16 +196,16 @@ describe('CommentRepositoryPostgres', () => {
         id: payload.commentId,
         thread: payload.threadId,
         owner: payload.userId,
-        createdAt: payload.date,
-        updatedAt: payload.date,
+        createdAt: expected[0].date,
+        updatedAt: expected[0].date,
       });
       await CommentsTableTestHelper.addComment({
         id: payload.commentId2,
         thread: payload.threadId,
         owner: payload.userId,
         content: expected[1].content,
-        createdAt: payload.date,
-        updatedAt: payload.date,
+        createdAt: expected[1].date,
+        updatedAt: expected[1].date,
       });
       const commentRepositoryPostgres = new CommentRepositoryPostgres(
         pool,
@@ -214,6 +214,16 @@ describe('CommentRepositoryPostgres', () => {
       );
       const commentResult = await commentRepositoryPostgres.getCommentByThreadId(payload.threadId);
       expect(commentResult.length).toEqual(2);
+      expect(commentResult).toStrictEqual([{
+        content: 'lorem ipsum',
+        date: expected[0].date,
+        id: 'comment-123',
+        is_delete: false,
+        likecount: '0',
+        username: 'dicoding',
+      }, {
+        content: 'lorem ipsum', date: expected[1].date, id: 'comment-124', is_delete: false, likecount: '0', username: 'dicoding',
+      }]);
     });
   });
 
@@ -305,6 +315,15 @@ describe('CommentRepositoryPostgres', () => {
         payload.commentId,
       );
       expect(replyCommentResult).toHaveLength(1);
+      expect(replyCommentResult).toStrictEqual([
+        {
+          content: 'konten lorem ipsum',
+          date: payload.date,
+          id: 'comment-124',
+          is_delete: false,
+          username: 'dicoding2',
+        },
+      ]);
     });
   });
 });

@@ -1,9 +1,7 @@
 /* eslint-disable no-new */
-const RegisterComment = require('../../../Domains/comments/entities/RegisterComment');
 const RegisteredComment = require('../../../Domains/comments/entities/RegisteredComment');
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
 const ReplyCommentUseCase = require('../ReplyCommentUseCase');
-const AddCommentUseCase = require('../AddCommentUseCase');
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 
 describe('ReplyCommentUseCase', () => {
@@ -12,16 +10,11 @@ describe('ReplyCommentUseCase', () => {
    */
   it('should orchestrating the reply comment action correctly', async () => {
     // Arrange
-    const useCasePayload = {
-      content: 'lorem ipsum',
-    };
     const replyUseCasePayload = {
       content: 'konten lorem ipsum',
     };
 
-    const owner = 'user-123';
     const threadId = 'thread-123';
-
 
     const expectedRepliedComment = new RegisteredComment({
       id: 'comment-124',
@@ -31,8 +24,7 @@ describe('ReplyCommentUseCase', () => {
 
     /** creating dependency of use case */
     const mockThreadRepository = new ThreadRepository();
-    const mockCommentRepository = new CommentRepository();  
-
+    const mockCommentRepository = new CommentRepository();
 
     /** mocking needed function */
     mockThreadRepository.verifyThreadExist = jest.fn()
@@ -58,9 +50,8 @@ describe('ReplyCommentUseCase', () => {
 
     // Assert
     expect(mockCommentRepository.verifyCommentExist).toBeCalledWith('comment-123');
-    expect(mockCommentRepository.addComment).toBeCalledWith("user-124","thread-123", replyUseCasePayload,  "comment-123");
+    expect(mockCommentRepository.addComment).toBeCalledWith('user-124', 'thread-123', replyUseCasePayload, 'comment-123');
     expect(mockThreadRepository.verifyThreadExist).toBeCalledWith(threadId);
     expect(repliedComment).toStrictEqual(expectedRepliedComment);
-  
   });
 });

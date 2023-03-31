@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
 class GetDetailThreadUseCase {
@@ -14,6 +15,7 @@ class GetDetailThreadUseCase {
     );
     // thread.comments = this._checkIsCommentDeleted(thread.comments);
     thread.comments = await this._checkIsCommentDeleted(thread.comments);
+
     return thread;
   }
 
@@ -32,6 +34,7 @@ class GetDetailThreadUseCase {
           ? '**komentar telah dihapus**'
           : data.content,
         username: data.username,
+        likeCount: parseInt(data.likecount, 10) || 0,
         replies,
       };
 
