@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 class RegisteredComment {
   constructor(payload) {
     this._verifyPayload(payload);

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const RegisterThread = require('../RegisterThread');
 
 describe('a RegisterThread entities', () => {

@@ -90,7 +90,7 @@ describe('AddCommentLikeUseCase', () => {
       .mockImplementation(() => Promise.resolve());
 
     mockCommentLikeRepository.deleteCommentLike = jest.fn()
-      .mockImplementation(() => Promise.resolve());
+      .mockImplementation(() => Promise.resolve({ id: 'comment-like-123' }));
 
     /** mocking needed function */
 

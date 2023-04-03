@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const CommentLikesTableTestHelper = require('../../../../tests/CommentLikesTableTestHelper');
 const RegisteredCommentLike = require('../../../Domains/comment-likes/entities/RegisteredCommentLike');
 const pool = require('../../database/postgres/pool');

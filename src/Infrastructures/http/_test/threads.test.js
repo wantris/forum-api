@@ -42,7 +42,7 @@ describe('/threads endpoint', () => {
         title: 'lorem ipsum',
         body: 'lorem ipsum',
       };
-      // eslint-disable-next-line no-undef
+
       await UsersTableTestHelper.addUser({ id: 'user-123' });
       const accessToken = await AuthTestHelper.getAccessToken();
       const server = await createServer(container);

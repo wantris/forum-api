@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const RegisterComment = require('../RegisterComment');
 
 describe('a RegisterComment entities', () => {

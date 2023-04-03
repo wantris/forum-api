@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper');
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelper');
@@ -157,7 +156,7 @@ describe('CommentRepositoryPostgres', () => {
         dateGenerator);
 
       const deletedComment = await commentRepositoryPostgres.deleteCommentById(commentId, owner);
-      expect(deletedComment).toHaveLength(1);
+      expect(Object.keys(deletedComment).length).toStrictEqual(1);
     });
   });
 

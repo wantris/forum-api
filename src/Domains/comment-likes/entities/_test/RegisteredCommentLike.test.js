@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable camelcase */
 const RegisteredCommentLike = require('../RegisteredCommentLike');
 
 describe('a RegisteredCommentLike entities', () => {

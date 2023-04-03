@@ -44,14 +44,14 @@ class CommentRepositoryPostgres extends CommentRepository {
     const newDate = new this._dateGenerator().toISOString();
 
     const query = {
-      text: 'UPDATE comments SET is_delete=true, updated_at = $1 WHERE id = $2 AND owner=$3 RETURNING id, content, owner',
+      text: 'UPDATE comments SET is_delete=true, updated_at = $1 WHERE id = $2 AND owner=$3 RETURNING id',
       values: [newDate, id, owner],
     };
     const result = await this._pool.query(query);
     if (result.rowCount === 0) {
       throw new ForbiddenError('tidak bisa menghapus komentar dari user lain');
     }
-    return result.rows;
+    return result.rows[0];
   }
 
   async getCommentByThreadId(threadId) {

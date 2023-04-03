@@ -1,6 +1,3 @@
-/* eslint-disable radix */
-/* eslint-disable no-param-reassign */
-/* eslint-disable class-methods-use-this */
 class GetDetailThreadUseCase {
   constructor({ threadRepository, commentRepository }) {
     this._threadRepository = threadRepository;
