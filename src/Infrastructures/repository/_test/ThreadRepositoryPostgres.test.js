@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper');
 const RegisteredThread = require('../../../Domains/threads/entities/RegisteredThread');
 const RegisterThread = require('../../../Domains/threads/entities/RegisterThread');

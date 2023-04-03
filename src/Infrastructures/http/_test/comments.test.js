@@ -77,7 +77,7 @@ describe('/threads/{threadid}/comments endpoint', () => {
         body: 'Lorem ipsum',
         owner: 'user-123',
       };
-      // eslint-disable-next-line no-undef
+
       await UsersTableTestHelper.addUser({ id: threadPayload.owner });
       await ThreadsTableTestHelper.addThread(threadPayload);
       const accessToken = await AuthTestHelper.getAccessToken();
@@ -112,7 +112,7 @@ describe('/threads/{threadid}/comments endpoint', () => {
         body: 'Lorem ipsum',
         owner: 'user-123',
       };
-      // eslint-disable-next-line no-undef
+
       await UsersTableTestHelper.addUser({ id: threadPayload.owner });
       await ThreadsTableTestHelper.addThread(threadPayload);
       const accessToken = await AuthTestHelper.getAccessToken();
@@ -304,7 +304,7 @@ describe('/threads/{threadid}/comments endpoint', () => {
         body: 'Lorem ipsum',
         owner: 'user-123',
       };
-      // eslint-disable-next-line no-undef
+
       await UsersTableTestHelper.addUser({ id: threadPayload.owner });
       await ThreadsTableTestHelper.addThread(threadPayload);
       await CommentsTableTestHelper.addComment({ id: 'comment-123' });
@@ -340,7 +340,7 @@ describe('/threads/{threadid}/comments endpoint', () => {
         body: 'Lorem ipsum',
         owner: 'user-123',
       };
-      // eslint-disable-next-line no-undef
+
       await UsersTableTestHelper.addUser({ id: threadPayload.owner });
       await ThreadsTableTestHelper.addThread(threadPayload);
       await CommentsTableTestHelper.addComment({ id: 'comment-123' });

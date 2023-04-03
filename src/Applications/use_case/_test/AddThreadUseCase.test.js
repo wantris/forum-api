@@ -17,7 +17,6 @@ describe('AddThreadUseCase', () => {
     const expectedRegisteredThread = new RegisteredThread({
       id: 'thread-123',
       title: useCasePayload.title,
-      body: useCasePayload.body,
       owner: 'user-123',
     });
 
@@ -29,7 +28,6 @@ describe('AddThreadUseCase', () => {
       .mockImplementation(() => Promise.resolve(new RegisteredThread({
         id: 'thread-123',
         title: useCasePayload.title,
-        body: useCasePayload.body,
         owner: 'user-123',
       })));
 

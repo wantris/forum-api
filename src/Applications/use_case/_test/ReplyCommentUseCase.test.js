@@ -1,4 +1,3 @@
-/* eslint-disable no-new */
 const RegisteredComment = require('../../../Domains/comments/entities/RegisteredComment');
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
 const ReplyCommentUseCase = require('../ReplyCommentUseCase');

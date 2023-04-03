@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 class RegisterUser {
   constructor(payload) {
     this._verifyPayload(payload);
